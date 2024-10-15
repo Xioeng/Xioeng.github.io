@@ -219,6 +219,9 @@ section {
 #clients .col-2-3 [class*='col-'] {
     padding: 0;
 }
+#clients .col-4-5 [class*='col-'] {
+    padding: 0;
+}
 
 /* Clearfix */
 
@@ -236,6 +239,7 @@ section {
 
 .col-2 {
     width: 50%;
+    align-items: center; 
 }
 
 .col-3 {
@@ -284,6 +288,9 @@ section {
 
 .col-3-4 {
     width: 75%;
+}
+.col-4-5 {
+    width: 80%;
 }
 
 .col-9-10 {
@@ -782,9 +789,52 @@ h6 {
     background-size: cover;
 }
 
-#banner-content.row {
-    padding-top: 170px;
-    padding-bottom: 100px;
+#banner-content {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Optional: add space between the columns */
+}
+
+/* Style for content column */
+.col-content {
+    flex: 1; /* Allow this column to take up available space */
+    margin-right: 20px; /* Space between the text and image */
+}
+
+/* Style for image column */
+.col-image {
+    flex: 1; /* Allow this column to take up available space */
+    max-width: 45%; /* Restrict the width of the image column */
+}
+
+/* Style the image */
+.profile-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Optional: rounded corners */
+}
+.research-container {
+    display: flex;                     /* Use flexbox to align children horizontally */
+    justify-content: center;           /* Center images horizontally (optional) */
+    align-items: center;               /* Center images vertically within their containers */
+}
+
+.research-image {
+    margin: 0 10px;                   /* Optional: add some margin between images */
+    display: flex;                     /* Use flexbox to center the image inside */
+    align-items: center;                 /* Hide any overflow */
+}
+
+.research-img {
+    height: 100%;                      /* Make the image fill the height of the container */
+    width: auto;                       /* Maintain the aspect ratio */
+    object-fit: cover;                 /* Scale the image to cover the container */
+}
+.caption {
+    margin-top: 10px;                  /* Space between image and caption */
+    text-align: center;                 /* Center the caption text */
+    font-size: 14px;                   /* Adjust font size as needed */
+    color: #555;                       /* Set a color for the caption */
 }
 
 #banner h1 {
@@ -814,6 +864,18 @@ h6 {
 }
 
 /*Icon Block*/
+
+.skill-date {
+    margin-left: auto; /* Push the number to the right */
+    text-align: right; /* Align text inside the number span to the right */
+    font-style: italic; /* Make the text italic */
+    font-weight: normal; /* Remove bold styling */
+}
+.skill-item {
+    display: flex;
+    justify-content: space-between; /* Space elements apart */
+    align-items: center; /* Align items vertically */
+}
 
 .icon-block {
     position: relative;
@@ -2119,11 +2181,13 @@ blockquote {
 
     .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col-2-3, .col-3-4, .col-9-10, .col-61, .col-38, .row {
         width: 100%;
+        align-items: center; 
     }
 
     .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col-2-3, .col-3-4, .col-9-10, .col-61, .col-38 {
         padding-right: 0;
         padding-left: 0;
+        align-items: center; 
     }
 
     /*-----------------Header Elements-----------------*/
@@ -2148,10 +2212,6 @@ blockquote {
 
     #header ul.social-icons {
         margin-top: 0;
-    }
-
-    #banner-content.row {
-        padding-top: 85px !important;
     }
 
     /*-----------------Sections-----------------*/
@@ -2213,6 +2273,7 @@ blockquote {
 
     .col-1, .col-2, .col-5, .col-7, .col-9, .col-11, .col-2-3, .col-3-4, .col-61, .col-38, .row {
         width: 100%;
+        align-items: center; 
     }
 
     .col-3, .col-4, .col-6, .col-8, .col-10, .col-12 {
@@ -2242,10 +2303,6 @@ blockquote {
         padding-top: 6px;
     }
 
-    #banner-content.row {
-        padding-top: 85px !important;
-    }
-
     /*Navigation*/
     nav#nav-mobile ul {
         margin-left: -40px;
@@ -2272,6 +2329,13 @@ blockquote {
         width: 50%;
     }
 
+}
+
+.profile-image {
+    max-width: 100%; /* Make the image responsive */
+    height: auto;
+    border-radius: 8px; /* Optional: add rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow */
 }
 
 /* Landscape Tablet to Desktop
