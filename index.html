@@ -236,6 +236,22 @@
         </aside> -->
         <!--End of Gallery -->
 
+        <script>
+            // Function to open the modal
+            function openModal() {
+                document.getElementById('videoModal').style.display = 'flex';
+            }
+
+            // Function to close the modal
+            function closeModal() {
+                document.getElementById('videoModal').style.display = 'none';
+                // Pause the video when closing the modal
+                var iframe = document.getElementById('youtubeVideo');
+                var videoSrc = iframe.src;
+                iframe.src = videoSrc; // Resetting the src attribute to stop the video
+            }
+        </script>    
+
     <section id="research" class="scrollto clearfix">
 
         <div class="row clearfix">
@@ -278,8 +294,8 @@
                         We introduce a novel method: a limited communication decentralized information-gathering system for multiple robots to explore environmental phenomena
                         characterized as unknown spatial fields. Our method leverages quadtree structures to ensure comprehensive workspace coverage and efficient exploration
                     </p>
-                    <a href="#" data-videoid="WNDXamTPiTw" data-videosite="youtube" class="button video link-lightbox">
-                        WATCH VIDEO <i class="fa fa-play" aria-hidden="true"></i>
+                    <a href="https://www.youtube.com/watch?v=WNDXamTPiTw&t" class="video-link" target="_blank">
+                        Watch Video
                     </a>
                 </div>
 
@@ -310,8 +326,11 @@
                         </div>
                     </div>
                     <p class="caption">Robot seeking the highest temperature concentration while updating its map</p>
-                    <a href="#" data-videoid="WgwoR-ZNZtE" data-videosite="youtube" class="button video link-lightbox">
-                        WATCH VIDEO <i class="fa fa-play" aria-hidden="true"></i>
+                    <a href="https://www.youtube.com/watch?v=WgwoR-ZNZtE" class="video-link" target="_blank">
+                        Watch Video
+                    </a>
+                    <!-- <a href="#" data-videoid="WgwoR-ZNZtE" data-videosite="youtube" class="button video link-lightbox">
+                        WATCH VIDEO <i class="fa fa-play" aria-hidden="true"></i> -->
                     </a>
                 </div>
             </div>
@@ -344,9 +363,12 @@
                         </div>
                     </div>
                     <p class="caption">Humban-robot interface, natural mapping that is also optimal and testbed</p>
-                    <a href="#" data-videoid="5Wyf6OihW2E" data-videosite="youtube" class="button video link-lightbox">
-                        WATCH VIDEO <i class="fa fa-play" aria-hidden="true"></i>
+                    <a href="https://www.youtube.com/watch?v=5Wyf6OihW2E" class="video-link" target="_blank">
+                        Watch Video
                     </a>
+                    <!-- <a href="#" data-videoid="5Wyf6OihW2E" data-videosite="youtube" class="button video link-lightbox">
+                        WATCH VIDEO <i class="fa fa-play" aria-hidden="true"></i>
+                    </a> -->
                 </div>
             
         </div>
