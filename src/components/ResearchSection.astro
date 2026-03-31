@@ -1,0 +1,173 @@
+---
+import { getCollection } from "astro:content";
+import { postImages } from "../config/posts-images";
+
+const posts = await getCollection("posts");
+---
+
+<section id="research" class="research-section">
+  <div class="research-container">
+    <h2 class="research-title">Research</h2>
+    <!-- <p class="research-subtitle">Insights, tutorials, and technical explorations</p> -->
+    
+    <div class="posts-grid">
+      {
+        posts.map((post) => {
+          const slug = post.slug || post.id?.split("/").pop()?.replace(/\.md$/, "");
+          const image = postImages[slug] || "/images/posts/craft-1141796_640.png";
+          
+          return (
+            <article class="post-card">
+              {image && (
+                <div class="post-card-image">
+                  <img src={image} alt={post.data.title} />
+                </div>
+              )}
+              <div class="post-card-content">
+                <h3 class="post-card-title">{post.data.title}</h3>
+                {post.data.description && (
+                  <p class="post-card-description">{post.data.description}</p>
+                )}
+                <div class="post-card-meta">
+                  {post.data.author && (
+                    <span class="post-author">{post.data.author}</span>
+                  )}
+                  {post.data.pubDate && (
+                    <span class="post-date">
+                      {new Date(post.data.pubDate).toLocaleDateString()}
+                    </span>
+                  )}
+                </div>
+                <a href={`/posts/${slug}`} class="post-card-link">
+                  Read More →
+                </a>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .research-section {
+    padding: 80px 20px;
+    background: #f8f9fa;
+    position: relative;
+  }
+
+  .research-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .research-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+  }
+
+  .research-subtitle {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 60px;
+    color: #666;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .post-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .post-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: #e0e0e0;
+  }
+
+  .post-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .post-card:hover .post-card-image img {
+    transform: scale(1.05);
+  }
+
+  .post-card-content {
+    padding: 20px;
+  }
+
+  .post-card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
+    line-height: 1.4;
+  }
+
+  .post-card-description {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-card-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    color: #999;
+  }
+
+  .post-author {
+    font-weight: 500;
+  }
+
+  .post-card-link {
+    display: inline-block;
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .post-card-link:hover {
+    color: #764ba2;
+  }
+
+  @media (max-width: 768px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .research-title {
+      font-size: 2rem;
+    }
+  }
+</style>

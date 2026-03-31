@@ -1,0 +1,493 @@
+---
+import { proficienciesConfig } from "../config/proficiencies";
+
+// Generate distinct gradient colors for skills
+const skillColors = [
+  { start: "#9dddd4", mid: "#88d4c9", end: "#76cfc5" }, // Teal
+  { start: "#ffd966", mid: "#ffc933", end: "#ffb400" }, // Yellow
+  { start: "#e88b8b", mid: "#ea7876", end: "#ec6664" }, // Red
+  { start: "#b19ddb", mid: "#9575cd", end: "#7e57c2" }, // Purple
+  { start: "#80deea", mid: "#4dd0e1", end: "#26c6da" }, // Cyan
+  { start: "#ffab91", mid: "#ff8a65", end: "#ff6e40" }, // Orange
+  { start: "#f48fb1", mid: "#ec407a", end: "#e91e63" }, // Pink
+  { start: "#a5d6a7", mid: "#81c784", end: "#66bb6a" }, // Green
+];
+
+// Category colors with background and border
+const categoryColors = [
+  { bg: "rgba(157, 221, 212, 0.2)", border: "rgba(157, 221, 212, 0.6)", text: "rgba(255, 255, 255, 0.95)", name: "Teal" }, // Programming Languages
+  { bg: "rgba(255, 169, 145, 0.2)", border: "rgba(255, 169, 145, 0.6)", text: "rgba(255, 255, 255, 0.95)", name: "Orange" }, // AI & Robotics
+  { bg: "rgba(177, 157, 219, 0.2)", border: "rgba(177, 157, 219, 0.6)", text: "rgba(255, 255, 255, 0.95)", name: "Purple" }, // Mathematical & Statistical
+  { bg: "rgba(128, 222, 234, 0.2)", border: "rgba(128, 222, 234, 0.6)", text: "rgba(255, 255, 255, 0.95)", name: "Cyan" }, // Tools & Platforms
+];
+
+const getCategoryColor = (index: number) => categoryColors[index % categoryColors.length];
+---
+
+<section class="proficiency-section" id="proficiency-section">
+  <div class="proficiency-content">
+    <h2 class="proficiency-title">Skills</h2>
+
+    {proficienciesConfig.skills.length > 0 && (
+      <>
+        <h3 class="subsection-title">Programming Languages and Frameworks</h3>
+        <div class="skills-grid">
+          {proficienciesConfig.skills.map((skill, index) => {
+            const colors = skillColors[index % skillColors.length];
+            const gradientId = `gradient-skill-${index}`;
+            return (
+              <div class="skill-card" data-percentage={skill.percentage}>
+                <div class="skill-name">
+                  {skill.name}
+                </div>
+                <div class="circular-progress">
+                  <svg class="progress-ring" width="120" height="120">
+                    <circle
+                      class="progress-ring-circle-bg"
+                      stroke="#f0f0f0"
+                      stroke-width="6"
+                      fill="transparent"
+                      r="54"
+                      cx="60"
+                      cy="60"
+                    />
+                    <circle
+                      class="progress-ring-circle"
+                      stroke={`url(#${gradientId})`}
+                      stroke-width="6"
+                      fill="transparent"
+                      r="54"
+                      cx="60"
+                      cy="60"
+                      stroke-dasharray="339.29"
+                      stroke-dashoffset="339.29"
+                      data-circumference="339.29"
+                    />
+                    <defs>
+                      <linearGradient
+                        id={gradientId}
+                        gradientUnits="userSpaceOnUse"
+                        x1="60"
+                        y1="6"
+                        x2="114"
+                        y2="60"
+                      >
+                        <stop
+                          offset="0%"
+                          style={`stop-color:${colors.start};stop-opacity:1`}
+                        />
+                        <stop
+                          offset="50%"
+                          style={`stop-color:${colors.mid};stop-opacity:1`}
+                        />
+                        <stop
+                          offset="100%"
+                          style={`stop-color:${colors.end};stop-opacity:1`}
+                        />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div class="circular-progress-text">
+                    <span class="skill-percentage" data-target={skill.percentage}>
+                      0
+                    </span>%
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    )}
+
+    {(proficienciesConfig.technologies.length > 0 || proficienciesConfig.skillCategories.length > 0) && (
+      <>
+        <h3 class="subsection-title">Skills & Tools</h3>
+        {proficienciesConfig.skillCategories && proficienciesConfig.skillCategories.length > 0 && (
+          <>
+            {proficienciesConfig.skillCategories.map((category, categoryIndex) => {
+              const colors = getCategoryColor(categoryIndex);
+              return (
+                <div class="skill-category-section">
+                  <div class="category-badge-grid">
+                    {category.items.map((item) => (
+                      <div 
+                        class="category-badge"
+                        style={`background: ${colors.bg}; border-color: ${colors.border}; color: ${colors.text}`}
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        )}
+        {proficienciesConfig.technologies.length > 0 && (
+          <div class="technologies-section">
+            <div class="technologies-grid">
+              {proficienciesConfig.technologies.map((tech) => (
+                <div class="technology-badge">
+                  {tech.name}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
+    )}
+  </div>
+</section>
+
+<script>
+  // Number animation: count from 0 to target
+  function animateNumber(
+    element: HTMLElement,
+    target: number,
+    duration = 2000
+  ) {
+    const start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out function
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = Math.floor(start + (target - start) * easeOutQuart);
+
+      element.textContent = current.toString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = target.toString();
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Circular progress animation
+  function animateCircularProgress(
+    circle: SVGCircleElement,
+    percentage: number,
+    duration = 2000
+  ) {
+    const circumference = parseFloat(
+      circle.getAttribute("data-circumference") || "502.65"
+    );
+    const startTime = performance.now();
+    const offset = circumference;
+
+    function update(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out function
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentPercentage = percentage * easeOutQuart;
+      const currentOffset =
+        circumference - (currentPercentage / 100) * circumference;
+
+      circle.style.strokeDashoffset = currentOffset.toString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        circle.style.strokeDashoffset = (
+          circumference -
+          (percentage / 100) * circumference
+        ).toString();
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Use Intersection Observer to trigger on scroll
+  const proficiencySection = document.getElementById("proficiency-section");
+  let hasAnimated = false;
+
+  if (proficiencySection) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+
+            // Get all skill cards
+            const skillCards =
+              proficiencySection.querySelectorAll(".skill-card");
+
+            skillCards.forEach((card, index) => {
+              setTimeout(() => {
+                const percentageElement = card.querySelector(
+                  ".skill-percentage"
+                ) as HTMLElement;
+                const progressCircle = card.querySelector(
+                  ".progress-ring-circle"
+                ) as SVGCircleElement;
+                const percentage = parseInt(
+                  card.getAttribute("data-percentage") || "0"
+                );
+
+                if (percentageElement && progressCircle) {
+                  // Start number animation
+                  animateNumber(percentageElement, percentage);
+
+                  // Start circular progress animation
+                  animateCircularProgress(progressCircle, percentage);
+                }
+              }, index * 150); // Stagger each skill by 150ms
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% is visible
+      }
+    );
+
+    observer.observe(proficiencySection);
+  }
+</script>
+
+<style>
+  .proficiency-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 80px 20px;
+    border-radius: 8px;
+  }
+
+  .proficiency-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .proficiency-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    margin-bottom: 60px;
+    letter-spacing: -1px;
+  }
+
+  .subsection-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 30px;
+    margin-top: 40px;
+  }
+
+  .subsection-title:first-of-type {
+    margin-top: 0;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+  }
+
+  .skill-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .skill-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+  }
+
+  .circular-progress {
+    position: relative;
+    width: 120px;
+    height: 120px;
+  }
+
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+
+  .progress-ring-circle {
+    transition: stroke-dashoffset 0.35s;
+    transform-origin: 50% 50%;
+  }
+
+  .circular-progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .skill-percentage {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  /* Technologies Grid */
+  .technologies-section {
+    margin-bottom: 20px;
+  }
+
+  .technologies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .technology-badge {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    padding: 8px 14px;
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    font-size: 13px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .technology-badge:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+  }
+
+  /* Skills Categories */
+  .skill-category-section {
+    margin-bottom: 20px;
+  }
+
+  .category-badge-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  .category-badge {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    padding: 8px 14px;
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .category-badge:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .skills-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  .skill-category {
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid rgba(255, 255, 255, 0.4);
+    padding: 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+  }
+
+  .category-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 15px;
+    margin-top: 0;
+  }
+
+  .category-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .category-items li {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .category-items li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .proficiency-section {
+      padding: 60px 20px;
+      margin: 40px 0;
+    }
+
+    .proficiency-title {
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    .subsection-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      gap: 15px;
+    }
+
+    .circular-progress {
+      width: 140px;
+      height: 140px;
+    }
+
+    .progress-ring {
+      width: 140px;
+      height: 140px;
+    }
+
+    .skill-percentage {
+      font-size: 24px;
+    }
+  }
+</style>
+

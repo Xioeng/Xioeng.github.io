@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800"
+   height="800"
+   viewBox="0 0 24 24"
+   fill="none"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M 22,12 C 22,17.5228 17.5228,22 12,22 6.47715,22 2,17.5228 2,12 2,6.47715 6.47715,2 12,2 17.5228,2 22,6.47715 22,12 Z M 7.005,9 C 7.005,8.45 7.45,8 8,8 h 8 c 0.55,0 1,0.45 1,1 v 6 c 0,0.55 -0.45,1 -1,1 H 8 C 7.45,16 7,15.55 7,15 Z M 12,12.5 8.00001,9.99997 V 15 H 16 V 9.99997 Z m 0,-1 L 8.00001,9.00001 H 16 Z"
+     fill="#000000"
+     id="path1"
+     style="fill:#7137c8" />
+</svg>

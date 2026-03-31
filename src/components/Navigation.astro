@@ -1,0 +1,38 @@
+---
+import { Astro } from "astro";
+import { siteConfig } from "../config/site";
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav>
+  <a href="/" class="site-name">{siteConfig.name}</a>
+  <ul class="nav-menu">
+    <li>
+      <!-- Delete '/' to enable navigation links within the page sections -->
+      <a href="/#home" class="menu-link" 
+        >{siteConfig.navigation.home}</a
+      >
+    </li>
+    <li>
+      <a href="/#experience" class="menu-link"
+        >{siteConfig.navigation.experience}</a
+      >
+    </li>
+    <li>
+      <a href="/#education" class="menu-link"
+        >{siteConfig.navigation.education}</a
+      >
+    </li>
+    <li>
+      <a href="/#projects" class="menu-link"
+        >{siteConfig.navigation.projects}</a
+      >
+    </li>
+    <li>
+      <a href="/#research" class="menu-link"
+        >{siteConfig.navigation.research}</a
+      >
+    </li>
+  </ul>
+</nav>
